@@ -1,0 +1,158 @@
+/* Estilos globais */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Roboto", "Segoe UI", sans-serif;
+}
+
+body {
+    background-color: #f0f4f8;
+    color: #263238;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Barra superior */
+.app-bar {
+    background-color: #1291ca;
+    color: white;
+    padding: 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.app-bar .back-button {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    z-index: 2;
+}
+
+.app-bar .title {
+    position: absolute;
+    font-size: 20px;
+    font-weight: 500;
+    left: 0;
+    right: 0;
+    text-align: center;
+}
+
+.app-bar .actions {
+    display: flex;
+    gap: 16px;
+}
+
+.app-bar .icon {
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+    fill: white;
+}
+
+/* Conteúdo principal */
+.content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+}
+
+.language-title {
+    font-size: 24px;
+    font-weight: 500;
+    color: #263238;
+    margin-bottom: 32px;
+    text-align: center;
+}
+
+/* Opções de idioma */
+.language-options {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    width: 100%;
+    max-width: 320px;
+}
+
+.language-option {
+    display: flex;
+    align-items: center;
+    background-color: white;
+    border-radius: 8px;
+    padding: 16px;
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.language-option:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.language-option.selected {
+    background-color: #e1f5fe;
+    border: 2px solid #1291ca;
+}
+
+.language-flag {
+    width: 32px;
+    height: 32px;
+    margin-right: 16px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.language-info {
+    flex: 1;
+}
+
+.language-name {
+    font-size: 18px;
+    font-weight: 500;
+    color: #263238;
+}
+
+.language-native {
+    font-size: 14px;
+    color: #78909c;
+}
+
+.language-check {
+    width: 24px;
+    height: 24px;
+    fill: #1291ca;
+    opacity: 0;
+    transition: opacity 0.2s;
+}
+
+.language-option.selected .language-check {
+    opacity: 1;
+}
+
+/* Botão confirmar */
+.confirm-button {
+    background-color: #1291ca;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 14px 24px;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    margin-top: 32px;
+    width: 100%;
+    max-width: 320px;
+}
+
+.confirm-button:hover {
+    background-color: #0d7eab;
+}

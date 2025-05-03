@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GrapsiDROID - Splash Screen</title>
+    <link rel="stylesheet" href="css/tela_spash_screen.css" />
+  </head>
+  <body>
+    <div class="splash-container">
+      <div class="logo-container">
+        <div class="logo">
+          <svg class="logo-icon" viewBox="0 0 24 24">
+            <path
+              d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V5h14v14zM7 10h2v7H7zm4-3h2v10h-2zm4 6h2v4h-2z"
+            />
+          </svg>
+        </div>
+      </div>
+
+      <h1 class="title">GrapsiDROID</h1>
+      <p class="subtitle">Calculadora Psicrométrica</p>
+
+      <div class="loading-bar">
+        <div class="loading-progress"></div>
+      </div>
+      <p class="loading-text">Carregando...</p>
+    </div>
+
+    <div class="footer">
+      <p class="version">Versão 2.3.0</p>
+      <p class="institute">IFMG - Instituto Federal de Minas Gerais</p>
+    </div>
+
+    <script>
+      // Script para simular o carregamento e redirecionar para a tela de idioma
+      setTimeout(function () {
+        window.location.href = "tela_principal.html";
+      }, 3000);
+    </script>
+  </body>
+</html>

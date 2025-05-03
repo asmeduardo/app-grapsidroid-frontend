@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GrapsiDROID - Quebra e Perda</title>
+    <link rel="stylesheet" href="css/tela_quebra_e_perda.css" />
+  </head>
+  <body>
+    <!-- Barra superior -->
+    <div class="app-bar">
+      <div class="back-button">
+        <svg class="icon" viewBox="0 0 24 24">
+          <path
+            d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"
+          />
+        </svg>
+        <span>Voltar</span>
+      </div>
+      <div class="title">Quebra e Perda</div>
+      <div class="actions">
+        <svg class="icon" viewBox="0 0 24 24">
+          <path
+            d="M13 3h-2v10h2V3zm4.83 2.17l-1.42 1.42C17.99 7.86 19 9.81 19 12c0 3.87-3.13 7-7 7s-7-3.13-7-7c0-2.19 1.01-4.14 2.58-5.42L6.17 5.17C4.23 6.82 3 9.26 3 12c0 4.97 4.03 9 9 9s9-4.03 9-9c0-2.74-1.23-5.18-3.17-6.83z"
+          />
+        </svg>
+      </div>
+    </div>
+
+    <!-- Card de Entrada -->
+    <div class="card">
+      <div class="card-title">
+        <svg class="material-icon" viewBox="0 0 24 24">
+          <path
+            d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V5h14v14zM7 10h2v7H7zm4-3h2v10h-2zm4 6h2v4h-2z"
+          />
+        </svg>
+        DADOS DE ENTRADA
+      </div>
+
+      <div class="input-group">
+        <div class="input-row">
+          <label class="input-label">Umidade Inicial (%):</label>
+          <div class="input-field-container">
+            <input type="number" class="input-field" value="18.5" step="0.1" />
+          </div>
+        </div>
+
+        <div class="input-row">
+          <label class="input-label">Umidade Final (%):</label>
+          <div class="input-field-container">
+            <input type="number" class="input-field" value="13.0" step="0.1" />
+          </div>
+        </div>
+
+        <div class="input-row">
+          <label class="input-label">Impureza Inicial (%):</label>
+          <div class="input-field-container">
+            <input type="number" class="input-field" value="5.0" step="0.1" />
+          </div>
+        </div>
+
+        <div class="input-row">
+          <label class="input-label">Impureza Final (%):</label>
+          <div class="input-field-container">
+            <input type="number" class="input-field" value="2.0" step="0.1" />
+          </div>
+        </div>
+
+        <div class="input-row">
+          <label class="input-label">Massa do Produto (t):</label>
+          <div class="input-field-container">
+            <input type="number" class="input-field" value="1000.0" step="1" />
+          </div>
+        </div>
+      </div>
+
+      <button class="primary-button">CALCULAR PERDAS</button>
+    </div>
+
+    <!-- Card de Resultados -->
+    <div class="card">
+      <div class="card-title">
+        <svg class="material-icon" viewBox="0 0 24 24">
+          <path
+            d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V5h14v14zm-7-2h2V7h-4v2h2z"
+          />
+        </svg>
+        RESULTADOS
+      </div>
+
+      <div class="result-section">
+        <div class="result-item">
+          <span class="result-label">Umidade Final:</span>
+          <span class="result-value">13.0 %</span>
+        </div>
+
+        <div class="result-item">
+          <span class="result-label">Quebra por Impureza:</span>
+          <span class="result-value">3.06 %</span>
+        </div>
+
+        <div class="result-item">
+          <span class="result-label">Quebra por Umidade:</span>
+          <span class="result-value">6.32 %</span>
+        </div>
+
+        <div class="result-highlight">
+          <span class="result-highlight-label">Desconto Total</span>
+          <span class="result-highlight-value">9.19 %</span>
+        </div>
+
+        <div class="result-item">
+          <span class="result-label">Desconto na Massa:</span>
+          <span class="result-value">91.9 t</span>
+        </div>
+
+        <div class="result-item">
+          <span class="result-label">Massa Final:</span>
+          <span class="result-value">908.1 t</span>
+        </div>
+      </div>
+
+      <button class="secondary-button">LIMPAR DADOS</button>
+    </div>
+
+    <script src="js/app.js"></script>
+  </body>
+</html>

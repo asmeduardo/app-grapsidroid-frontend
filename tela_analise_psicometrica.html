@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GrapsiDROID - Análise Psicrométrica</title>
+    <link rel="stylesheet" href="css/tela_analise_psicometrica.css" />
+  </head>
+  <body>
+    <!-- Barra superior -->
+    <div class="app-bar">
+      <div class="back-button">
+        <svg class="icon" viewBox="0 0 24 24">
+          <path
+            d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"
+          />
+        </svg>
+        <span>Voltar</span>
+      </div>
+      <div class="title">Análise Psicrométrica</div>
+      <div class="actions">
+        <svg class="icon" viewBox="0 0 24 24">
+          <path
+            d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92 1.61 0 2.92-1.31 2.92-2.92s-1.31-2.92-2.92-2.92z"
+          />
+        </svg>
+      </div>
+    </div>
+
+    <!-- Card de parâmetros -->
+    <div class="card">
+      <div class="card-title">
+        <svg class="material-icon" viewBox="0 0 24 24">
+          <path
+            d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"
+          />
+        </svg>
+        PARÂMETROS DE SECAGEM
+      </div>
+
+      <div class="input-group">
+        <div class="input-row">
+          <label class="input-label">Temperatura Ambiente:</label>
+          <div class="input-field-container">
+            <input
+              id="tempAmb"
+              type="number"
+              class="input-field"
+              value="25.0"
+              step="0.1"
+            />
+            <span class="input-unit">°C</span>
+          </div>
+        </div>
+
+        <div class="input-row">
+          <label class="input-label">Umidade Relativa Ambiente:</label>
+          <div class="input-field-container">
+            <input
+              id="umidadeAmb"
+              type="number"
+              class="input-field"
+              value="65.0"
+              step="0.1"
+            />
+            <span class="input-unit">%</span>
+          </div>
+        </div>
+
+        <div class="input-row">
+          <label class="input-label">Temperatura de Secagem:</label>
+          <div class="input-field-container">
+            <input
+              id="tempSecagem"
+              type="number"
+              class="input-field"
+              value="60.0"
+              step="0.1"
+            />
+            <span class="input-unit">°C</span>
+          </div>
+        </div>
+
+        <div class="input-row">
+          <label class="input-label">Temperatura de Exaustão:</label>
+          <div class="input-field-container">
+            <input
+              id="tempExaust"
+              type="number"
+              class="input-field"
+              value="35.0"
+              step="0.1"
+            />
+            <span class="input-unit">°C</span>
+          </div>
+        </div>
+      </div>
+
+      <button id="calcularCondBtn" class="primary-button">
+        CALCULAR CONDIÇÕES
+      </button>
+    </div>
+
+    <!-- Card de resultados -->
+    <div class="card">
+      <div class="card-title">
+        <svg class="material-icon" viewBox="0 0 24 24">
+          <path
+            d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-3 14H8c-.55 0-1-.45-1-1s.45-1 1-1h8c.55 0 1 .45 1 1s-.45 1-1 1zm0-4H8c-.55 0-1-.45-1-1s.45-1 1-1h8c.55 0 1 .45 1 1s-.45 1-1 1zm0-4H8c-.55 0-1-.45-1-1s.45-1 1-1h8c.55 0 1 .45 1 1s-.45 1-1 1z"
+          />
+        </svg>
+        RESULTADOS
+      </div>
+
+      <!-- Tabs dos resultados -->
+      <div class="tabs">
+        <div class="tab active" data-tab="ambiente">AMBIENTE</div>
+        <div class="tab" data-tab="secagem">SECAGEM</div>
+        <div class="tab" data-tab="exaustao">EXAUSTÃO</div>
+      </div>
+
+      <!-- Diagrama do processo -->
+      <div class="process-diagram">
+        <div class="process-diagram-title">FLUXO DE AR NO PROCESSO</div>
+        <div class="process-diagram-content">
+          <div class="process-point point-ambient active">AMB</div>
+          <div class="process-arrow"></div>
+          <div class="process-point point-drying">SEC</div>
+          <div class="process-arrow"></div>
+          <div class="process-point point-exhaust">EXA</div>
+        </div>
+      </div>
+
+      <!-- Seção de resultados para AMBIENTE -->
+      <div id="ambiente-results" class="result-section">
+        <div class="result-item">
+          <span class="result-label">Temperatura de Bulbo Seco:</span>
+          <span id="tempSeco1" class="result-value">25.0 °C</span>
+        </div>
+
+        <div class="result-item">
+          <span class="result-label">Temperatura de Bulbo Úmido:</span>
+          <span id="tempUmido1" class="result-value">19.4 °C</span>
+        </div>
+
+        <div class="result-item">
+          <span class="result-label">Umidade Relativa:</span>
+          <span id="umidadeRel1" class="result-value">65.0 %</span>
+        </div>
+
+        <div class="result-item">
+          <span class="result-label">Razão de Mistura:</span>
+          <span id="razao1" class="result-value">0.013 kg/kg</span>
+        </div>
+
+        <div class="result-item">
+          <span class="result-label">Entalpia:</span>
+          <span id="entalpia1" class="result-value">58.4 kJ/kg</span>
+        </div>
+
+        <div class="result-item">
+          <span class="result-label">Volume Específico:</span>
+          <span id="volEsp1" class="result-value">0.861 m³/kg</span>
+        </div>
+
+        <div class="result-item">
+          <span class="result-label">Ponto de Orvalho:</span>
+          <span id="pontoOrv1" class="result-value">17.8 °C</span>
+        </div>
+
+        <div class="result-item">
+          <span class="result-label">Pressão de Vapor:</span>
+          <span id="pressaoVap1" class="result-value">2.06 kPa</span>
+        </div>
+
+        <div class="result-item">
+          <span class="result-label">Pressão de Vapor Saturado:</span>
+          <span id="pressao1" class="result-value">3.17 kPa</span>
+        </div>
+      </div>
+
+      <!-- Seção de resultados para SECAGEM -->
+      <div id="secagem-results" class="result-section" style="display: none">
+        <div class="result-item">
+          <span class="result-label">Temperatura de Bulbo Seco:</span>
+          <span id="tempSeco2" class="result-value">60.0 °C</span>
+        </div>
+
+        <div class="result-item">
+          <span class="result-label">Temperatura de Bulbo Úmido:</span>
+          <span id="tempUmido2" class="result-value">29.7 °C</span>
+        </div>
+
+        <div class="result-item">
+          <span class="result-label">Umidade Relativa:</span>
+          <span id="umidadeRel2" class="result-value">10.0 %</span>
+        </div>
+
+        <div class="result-item">
+          <span class="result-label">Razão de Mistura:</span>
+          <span id="razao2" class="result-value">0.013 kg/kg</span>
+        </div>
+
+        <div class="result-item">
+          <span class="result-label">Entalpia:</span>
+          <span id="entalpia2" class="result-value">93.6 kJ/kg</span>
+        </div>
+
+        <div class="result-item">
+          <span class="result-label">Volume Específico:</span>
+          <span id="volEsp2" class="result-value">1.011 m³/kg</span>
+        </div>
+
+        <div class="result-item">
+          <span class="result-label">Ponto de Orvalho:</span>
+          <span id="pontoOrv2" class="result-value">17.6 °C</span>
+        </div>
+
+        <div class="result-item">
+          <span class="result-label">Pressão de Vapor:</span>
+          <span id="pressaoVap2" class="result-value">1.99 kPa</span>
+        </div>
+
+        <div class="result-item">
+          <span class="result-label">Pressão de Vapor Saturado:</span>
+          <span id="pressao2" class="result-value">19.94 kPa</span>
+        </div>
+      </div>
+
+      <!-- Seção de resultados para EXAUSTÃO -->
+      <div id="exaustao-results" class="result-section" style="display: none">
+        <div class="result-item">
+          <span class="result-label">Temperatura de Bulbo Seco:</span>
+          <span id="tempSeco3" class="result-value">35.0 °C</span>
+        </div>
+
+        <div class="result-item">
+          <span class="result-label">Temperatura de Bulbo Úmido:</span>
+          <span id="tempUmido3" class="result-value">22.8 °C</span>
+        </div>
+
+        <div class="result-item">
+          <span class="result-label">Umidade Relativa:</span>
+          <span id="umidadeRel3" class="result-value">34.4 %</span>
+        </div>
+
+        <div class="result-item">
+          <span class="result-label">Razão de Mistura:</span>
+          <span id="razao3" class="result-value">0.013 kg/kg</span>
+        </div>
+
+        <div class="result-item">
+          <span class="result-label">Entalpia:</span>
+          <span id="entalpia3" class="result-value">70.1 kJ/kg</span>
+        </div>
+
+        <div class="result-item">
+          <span class="result-label">Volume Específico:</span>
+          <span id="volEsp3" class="result-value">0.906 m³/kg</span>
+        </div>
+
+        <div class="result-item">
+          <span class="result-label">Ponto de Orvalho:</span>
+          <span id="pontoOrv3" class="result-value">17.8 °C</span>
+        </div>
+
+        <div class="result-item">
+          <span class="result-label">Pressão de Vapor:</span>
+          <span id="pressaoVap3" class="result-value">2.04 kPa</span>
+        </div>
+
+        <div class="result-item">
+          <span class="result-label">Pressão de Vapor Saturado:</span>
+          <span id="pressao3" class="result-value">5.94 kPa</span>
+        </div>
+      </div>
+
+      <button id="voltarCondBtn" class="primary-button" disabled>
+        VISUALIZAR NA CARTA
+      </button>
+    </div>
+
+    <!-- Botão Limpar -->
+    <div style="padding: 0 16px">
+      <button id="limparCondBtn" class="secondary-button">LIMPAR DADOS</button>
+    </div>
+
+    <script src="js/app.js"></script>
+  </body>
+</html>

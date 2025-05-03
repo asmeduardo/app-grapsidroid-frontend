@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GrapsiDROID - Umidade de Equilíbrio</title>
+    <link rel="stylesheet" href="css/tela_umidade_equilibrio.css" />
+  </head>
+  <body>
+    <!-- Barra superior -->
+    <div class="app-bar">
+      <div class="back-button">
+        <svg class="icon" viewBox="0 0 24 24">
+          <path
+            d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"
+          />
+        </svg>
+        <span>Voltar</span>
+      </div>
+      <div class="title">Umidade de Equilíbrio</div>
+    </div>
+
+    <!-- Card de seleção de produto -->
+    <div class="card">
+      <div class="card-title">
+        <svg class="material-icon" viewBox="0 0 24 24">
+          <path
+            d="M17.21 9l-4.38-6.56c-.19-.28-.51-.42-.83-.42-.32 0-.64.14-.83.43L6.79 9H2c-.55 0-1 .45-1 1 0 .09.01.18.04.27l2.54 9.27c.23.84 1 1.46 1.92 1.46h13c.92 0 1.69-.62 1.93-1.46l2.54-9.27L23 10c0-.55-.45-1-1-1h-4.79zM9 9l3-4.4L15 9H9zm3 8c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2z"
+          />
+        </svg>
+        SELECIONE O PRODUTO
+      </div>
+
+      <select class="dropdown">
+        <option value="">Selecione...</option>
+        <option value="amendoim-vagem">Amendoim Vagem</option>
+        <option value="amendoim-beneficiado">Amendoim Beneficiado</option>
+        <option value="arroz-casca" selected>Arroz em Casca</option>
+        <option value="aveia">Aveia</option>
+        <option value="cevada">Cevada</option>
+        <option value="feijao">Feijão</option>
+        <option value="milho">Milho</option>
+        <option value="girassol">Semente de Girassol</option>
+        <option value="soja">Soja</option>
+        <option value="sorgo">Sorgo</option>
+        <option value="trigo-duro">Trigo Duro</option>
+        <option value="trigo-durum">Trigo Durum</option>
+        <option value="trigo-mole">Trigo Mole</option>
+      </select>
+    </div>
+
+    <!-- Tabs e conteúdo principal -->
+    <div class="card">
+      <div class="tabs-container">
+        <div class="tab active" data-tab="ponto">PONTO</div>
+        <div class="tab" data-tab="tabela">TABELA</div>
+      </div>
+
+      <!-- Conteúdo da tab Ponto -->
+      <div class="tab-section active" id="ponto-section">
+        <div class="input-group">
+          <div class="input-row">
+            <label class="input-label">Temperatura (°C):</label>
+            <div class="input-field-container">
+              <input
+                type="number"
+                class="input-field"
+                value="25.0"
+                step="0.1"
+              />
+            </div>
+          </div>
+
+          <div class="input-row">
+            <label class="input-label">Umidade Relativa (%):</label>
+            <div class="input-field-container">
+              <input
+                type="number"
+                class="input-field"
+                value="65.0"
+                step="0.1"
+              />
+            </div>
+          </div>
+        </div>
+
+        <button class="primary-button">CALCULAR UMIDADE DE EQUILÍBRIO</button>
+
+        <div class="result-container">
+          <div class="result-title">RESULTADO DO CÁLCULO</div>
+
+          <div class="big-result">
+            <div class="big-result-value">13.2</div>
+            <div class="big-result-unit">%</div>
+          </div>
+
+          <div class="graph-container">
+            <div class="graph-title">
+              Curva de Umidade de Equilíbrio (Arroz em Casca)
+            </div>
+            <div class="graph-curve">
+              <svg viewBox="0 0 100 100" preserveAspectRatio="none">
+                <!-- Eixos -->
+                <line
+                  x1="10"
+                  y1="90"
+                  x2="90"
+                  y2="90"
+                  stroke="#455A64"
+                  stroke-width="1"
+                />
+                <line
+                  x1="10"
+                  y1="10"
+                  x2="10"
+                  y2="90"
+                  stroke="#455A64"
+                  stroke-width="1"
+                />
+
+                <!-- Rótulos dos eixos -->
+                <text
+                  x="50"
+                  y="98"
+                  text-anchor="middle"
+                  font-size="4"
+                  fill="#455A64"
+                >
+                  Umidade Relativa (%)
+                </text>
+                <text
+                  x="5"
+                  y="50"
+                  text-anchor="middle"
+                  font-size="4"
+                  fill="#455A64"
+                  transform="rotate(-90, 5, 50)"
+                >
+                  Umidade de Equilíbrio (%)
+                </text>
+
+                <!-- Curva (exemplo) -->
+                <path
+                  d="M10,90 Q20,85 30,75 Q40,65 50,50 Q60,35 70,25 Q80,15 90,10"
+                  fill="none"
+                  stroke="#1291CA"
+                  stroke-width="2"
+                />
+
+                <!-- Ponto atual -->
+                <circle cx="50" cy="50" r="2" fill="#F44336" />
+              </svg>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Conteúdo da tab Tabela -->
+      <div class="tab-section" id="tabela-section">
+        <div class="table-container">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Temp. (°C)</th>
+                <th>50%</th>
+                <th>55%</th>
+                <th>60%</th>
+                <th>65%</th>
+                <th>70%</th>
+                <th>75%</th>
+                <th>80%</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th>10</th>
+                <td>12.5</td>
+                <td>13.1</td>
+                <td>13.7</td>
+                <td>14.4</td>
+                <td>15.2</td>
+                <td>16.1</td>
+                <td>17.2</td>
+              </tr>
+              <tr>
+                <th>15</th>
+                <td>12.1</td>
+                <td>12.7</td>
+                <td>13.3</td>
+                <td>14.0</td>
+                <td>14.7</td>
+                <td>15.6</td>
+                <td>16.7</td>
+              </tr>
+              <tr>
+                <th>20</th>
+                <td>11.7</td>
+                <td>12.3</td>
+                <td>12.9</td>
+                <td>13.5</td>
+                <td>14.3</td>
+                <td>15.1</td>
+                <td>16.2</td>
+              </tr>
+              <tr>
+                <th>25</th>
+                <td>11.3</td>
+                <td>11.9</td>
+                <td>12.5</td>
+                <td>13.2</td>
+                <td>13.9</td>
+                <td>14.7</td>
+                <td>15.7</td>
+              </tr>
+              <tr>
+                <th>30</th>
+                <td>11.0</td>
+                <td>11.5</td>
+                <td>12.1</td>
+                <td>12.8</td>
+                <td>13.5</td>
+                <td>14.3</td>
+                <td>15.3</td>
+              </tr>
+              <tr>
+                <th>35</th>
+                <td>10.6</td>
+                <td>11.2</td>
+                <td>11.8</td>
+                <td>12.4</td>
+                <td>13.1</td>
+                <td>13.9</td>
+                <td>14.9</td>
+              </tr>
+              <tr>
+                <th>40</th>
+                <td>10.3</td>
+                <td>10.9</td>
+                <td>11.4</td>
+                <td>12.1</td>
+                <td>12.8</td>
+                <td>13.6</td>
+                <td>14.5</td>
+              </tr>
+              <tr>
+                <th>45</th>
+                <td>10.0</td>
+                <td>10.6</td>
+                <td>11.1</td>
+                <td>11.8</td>
+                <td>12.5</td>
+                <td>13.2</td>
+                <td>14.1</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <script src="js/app.js"></script>
+  </body>
+</html>

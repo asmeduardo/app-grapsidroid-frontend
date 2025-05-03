@@ -1,0 +1,201 @@
+/* Estilos globais */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Roboto", "Segoe UI", sans-serif;
+}
+
+body {
+    background-color: #f0f4f8;
+    color: #263238;
+    padding-bottom: 20px;
+}
+
+/* Barra superior */
+.app-bar {
+    background-color: #1291ca;
+    color: white;
+    padding: 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.app-bar .back-button {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+}
+
+.app-bar .title {
+    font-size: 20px;
+    font-weight: 500;
+}
+
+.app-bar .actions {
+    display: flex;
+    gap: 16px;
+}
+
+.app-bar .icon {
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+    fill: white;
+}
+
+/* Cards */
+.card {
+    background-color: white;
+    border-radius: 8px;
+    padding: 16px;
+    margin: 16px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.card-title {
+    text-align: center;
+    font-size: 18px;
+    font-weight: 500;
+    margin-bottom: 16px;
+    color: #455a64;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+/* Entradas */
+.input-group {
+    margin-bottom: 16px;
+}
+
+.input-label {
+    display: block;
+    margin-bottom: 4px;
+    font-size: 15px;
+    color: #455a64;
+}
+
+.input-field {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #bdbdbd;
+    border-radius: 4px;
+    font-size: 16px;
+    background-color: #f5f5f5;
+    transition: border-color 0.2s, background-color 0.2s;
+}
+
+.input-field:focus {
+    border-color: #1291ca;
+    background-color: #ffffff;
+    outline: none;
+}
+
+/* Opções de rádio */
+.radio-group {
+    margin-bottom: 16px;
+}
+
+.radio-group-label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 15px;
+    color: #455a64;
+}
+
+.radio-options {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+}
+
+.radio-option {
+    display: flex;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.radio-option input[type="radio"] {
+    margin-right: 8px;
+}
+
+.radio-option label {
+    font-size: 15px;
+    color: #455a64;
+}
+
+/* Resultados */
+.result-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+    border-bottom: 1px solid #eeeeee;
+}
+
+.result-item:last-child {
+    border-bottom: none;
+}
+
+.result-label {
+    color: #455a64;
+    font-size: 15px;
+}
+
+.result-value {
+    font-weight: 500;
+    color: #1291ca;
+    font-size: 15px;
+}
+
+/* Botões */
+.primary-button {
+    background-color: #1291ca;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 12px 16px;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    display: block;
+    width: 100%;
+    text-align: center;
+    margin-top: 16px;
+}
+
+.primary-button:hover {
+    background-color: #0d7eab;
+}
+
+.secondary-button {
+    background-color: #78909c;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 12px 16px;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    display: block;
+    width: 100%;
+    text-align: center;
+    margin-top: 16px;
+}
+
+.secondary-button:hover {
+    background-color: #607d8b;
+}
+
+/* Material Icons */
+.material-icon {
+    width: 24px;
+    height: 24px;
+    fill: currentColor;
+}

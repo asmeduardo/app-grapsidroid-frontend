@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GrapsiDROID - Seleção de Idioma</title>
+    <link rel="stylesheet" href="css/tela_selecao_idiomas.css" />
+  </head>
+  <body>
+    <!-- Barra superior com botão de voltar -->
+    <div class="app-bar">
+      <div class="back-button" id="backButton">
+        <svg class="icon" viewBox="0 0 24 24">
+          <path
+            d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"
+          />
+        </svg>
+        <span>Voltar</span>
+      </div>
+      <div class="title">Idiomas</div>
+    </div>
+
+    <!-- Conteúdo principal -->
+    <div class="content">
+      <h1 class="language-title">Selecione seu idioma</h1>
+
+      <div class="language-options">
+        <div class="language-option selected" data-lang="pt-BR">
+          <img
+            src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NDAgNDgwIj48ZyBmaWxsLXJ1bGU9ImV2ZW5vZGQiIHN0cm9rZS13aWR0aD0iMXB0Ij48cGF0aCBmaWxsPSIjMjI5ZTQ1IiBkPSJNMCAwaDY0MHY0ODBIMHoiLz48cGF0aCBmaWxsPSIjZjhlZDAwIiBkPSJNMzIxLjQgNDM2bDMwMS41LTE5Mi4zTDMyMS4zIDQ0LjcgMTkuMSAyNDMuNyAzMjEuNCA0MzZ6Ii8+PHBhdGggZmlsbD0iIzE1NWRiNSIgZD0iTTMyMi4yIDI0Mi44YTg1LjkgODUuOSAwIDEgMSAwLTE3MS44IDg1LjkgODUuOSAwIDAgMSAwIDE3MS44eiIvPjxwYXRoIGZpbGw9IiNmZmYiIGQ9Ik0zMTkuMyAxNzguM0wyODkgMjExLjZsNy40IDM2IDMwLjItMjMuNCAzMS4xIDIzLjQgNi44LTM2LTMwLjMtMzIuNHoiLz48L2c+PC9zdmc+"
+            alt="Bandeira do Brasil"
+            class="language-flag"
+          />
+          <div class="language-info">
+            <div class="language-name">Português</div>
+            <div class="language-native">Português (Brasil)</div>
+          </div>
+          <svg class="language-check" viewBox="0 0 24 24">
+            <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" />
+          </svg>
+        </div>
+
+        <div class="language-option" data-lang="en-US">
+          <img
+            src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NDAgNDgwIj48ZyBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxwYXRoIGZpbGw9IiNmMGYwZjAiIGQ9Ik0wIDBoNjQwdjQ4MEgweiIvPjxwYXRoIGZpbGw9IiNkODAwMjciIGQ9Ik0wIDBoNjQwdjM2LjdIMHptMCA3My4zaDY0MHYzNi43SDB6bTAgNzMuNGg2NDB2MzYuNkgwem0wIDczLjNoNjQwdjM2LjdIMHptMCA3My40aDY0MHYzNi42SDB6bTAgNzMuM2g2NDB2MzYuN0gweiIvPjxwYXRoIGZpbGw9IiMwMDUyYjQiIGQ9Ik0wIDBoMzY0LjhWMjU4LjVIMHoiLz48cGF0aCBmaWxsPSIjZjBmMGYwIiBkPSJNMzAuNCAxNjQuMUwxNi4yIDE1N2w1LjMgMTYuMy0xMy45LTEwIDIuNiAxNi45LTE0LjItOS41LS4zIDE3LjItMTMuOS05LjktMy4yIDE2LjktMTIuOC0xMS41LTYuMiAxNS45LTExLjMtMTIuOC04LjkgMTQuNS05LjMtMTQtMTEuMyAxMi44LTcuMS0xNS4zLTEyLjggMTEuNS00LjItMTYuM0wtNjAuNyAxNjBsLTEuMy0xNi44LTEzLjQgMTAuNyAxLjUtMTYuOS0xMy45IDkuNCA0LjQtMTYuNS0xNCAgIDcuOCA3LTE1LjQtMTMuNCw2IDkuMy0xMy44TDk2LjQgMTI3bC0xMi0xMS43IDEzLTkuM0wzLjUgOS40bDE1IDQuMXptNTkuMy01LjZMNzUuMyAxNTJsNS4zIDE2LjMtMTMuOS0xMCAyLjYgMTctMTQuMi05LjUtLjMgMTcuMi0xMy45LTEwLTMuMiAxNy0xMi44LTExLjYtNi4yIDE2LTExLjMtMTIuOS04LjkgMTQuNS05LjMtMTRMNS40IDE3NmwtNy0xNS4zLTEyLjggMTEuNS00LTIuNyAxNzIuNS0xMTAuMXptNTkuMiAwTDEzNC42IDE1Mmw1LjMgMTYuMy0xMy45LTEwIDIuNiAxNy0xNC4yLTkuNS0uMyAxNy4yLTEzLjktMTAtMy4yIDE3LTEyLjgtMTEuNi02LjIgMTYtMTEuMy0xMi45LTguOSAxNC41LTkuMy0xNCAwIDBhMzI4LjUgMzI4LjUgMCAwIDEtMjUtMTF6TTIwOCAxNjQuMWwtMTQuMyA2LjctMTAuNy0xMS4yLTIuOSAxNS40LTE1LjMtNC4yIDIuOSAxNS41LTE1LjUtLjYgOC4yIDE0TDE0MiAyMDFsNi44IDE1LjYtMTYtMy42TDEzOSAyMzBsLTc0LjUgLTQ0LjYtLjIgMS4yIDgyLjcgNTYuNCAyIDFMMTMwLjkgMjQzbC0zLjIgMTYuM0wzIDE2NC4xaDIwNXoiLz48L2c+PC9zdmc+"
+            alt="Bandeira dos Estados Unidos"
+            class="language-flag"
+          />
+          <div class="language-info">
+            <div class="language-name">English</div>
+            <div class="language-native">English (US)</div>
+          </div>
+          <svg class="language-check" viewBox="0 0 24 24">
+            <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" />
+          </svg>
+        </div>
+
+        <div class="language-option" data-lang="es-ES">
+          <img
+            src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NDAgNDgwIj48cGF0aCBmaWxsPSIjYzYwYjFlIiBkPSJNMCAwaDY0MHY0ODBIMHoiLz48cGF0aCBmaWxsPSIjZmZjYjAwIiBkPSJNMCAxMjBoNjQwdjI0MEgweiIvPjwvc3ZnPg=="
+            alt="Bandeira da Espanha"
+            class="language-flag"
+          />
+          <div class="language-info">
+            <div class="language-name">Español</div>
+            <div class="language-native">Español</div>
+          </div>
+          <svg class="language-check" viewBox="0 0 24 24">
+            <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" />
+          </svg>
+        </div>
+      </div>
+
+      <button class="confirm-button">Confirmar</button>
+    </div>
+
+    <script src="js/app.js"></script>
+  </body>
+</html>
