@@ -58,14 +58,6 @@
             <button class="chart-toolbar-button">
               <svg class="material-icon" viewBox="0 0 24 24">
                 <path
-                  d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"
-                />
-              </svg>
-            </button>
-
-            <button class="chart-toolbar-button">
-              <svg class="material-icon" viewBox="0 0 24 24">
-                <path
                   d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"
                 />
               </svg>
@@ -219,6 +211,41 @@
       </div>
     </div>
 
+    <!-- Diálogo de seleção de formato de exportação -->
+    <div id="exportDialog" class="dialog-overlay" style="display: none;">
+      <div class="dialog-content">
+        <div class="dialog-header">
+          <h3>Exportar Dados</h3>
+          <button id="closeExportDialog" class="dialog-close">×</button>
+        </div>
+        <div class="dialog-body">
+          <p>Selecione o formato para exportação:</p>
+          <div class="format-options">
+            <button id="exportCSV" class="format-button">
+              <svg class="material-icon" viewBox="0 0 24 24">
+                <path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/>
+              </svg>
+              <span>CSV</span>
+            </button>
+            <button id="exportPDF" class="format-button">
+              <svg class="material-icon" viewBox="0 0 24 24">
+                <path d="M20 2H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-8.5 7.5c0 .83-.67 1.5-1.5 1.5H9v2H7.5V7H10c.83 0 1.5.67 1.5 1.5v1zm5 2c0 .83-.67 1.5-1.5 1.5h-2.5V7H15c.83 0 1.5.67 1.5 1.5v3zm4-3H19v1h1.5V11H19v2h-1.5V7h3v1.5zM9 9.5h1v-1H9v1zM4 6H2v14c0 1.1.9 2 2 2h14v-2H4V6zm10 5.5h1v-3h-1v3z"/>
+              </svg>
+              <span>PDF</span>
+            </button>
+            <button id="exportImage" class="format-button">
+              <svg class="material-icon" viewBox="0 0 24 24">
+                <path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/>
+              </svg>
+              <span>Imagem PNG</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <script src="js/app.js"></script>
   </body>
 </html>

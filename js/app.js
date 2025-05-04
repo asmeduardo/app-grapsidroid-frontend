@@ -3,18 +3,26 @@
 // Global variables for app state
 const app = {
   currentScreen: "tela_principal.html",
-  altura: 0,
+  altitude: 0,
   pressao: 101.325,
   idioma: "pt-BR",
   pontosGrafico: [],
 };
 
+// Adicione esta função ao app.js
+function savePointsData() {
+  localStorage.setItem("pontosGrafico", JSON.stringify(app.pontosGrafico));
+}
+
 // Function to navigate between screens
 function navigateTo(screenName) {
-  console.log("Navigating to: " + screenName);
-
-  // Save current app state if needed
+  // Salvar estado antes de navegar
   saveAppState();
+
+  // Se estiver navegando para a carta, salve os pontos no localStorage
+  if (screenName === "tela_carta_psicometrica.html") {
+    savePointsData();
+  }
 
   // Load the requested screen
   loadScreen(screenName);
@@ -23,10 +31,10 @@ function navigateTo(screenName) {
 // Function to save app state
 function saveAppState() {
   // Save altitude and pressure from main screen if present
-  const alturaInput = document.getElementById("altura");
+  const altitudeInput = document.getElementById("altitude");
   const pressaoInput = document.getElementById("pressao");
 
-  if (alturaInput) app.altura = parseFloat(alturaInput.value) || 0;
+  if (altitudeInput) app.altitude = parseFloat(altitudeInput.value) || 0;
   if (pressaoInput) app.pressao = parseFloat(pressaoInput.value) || 101.325;
 }
 
@@ -39,6 +47,12 @@ function loadScreen(screenName) {
 
 // Initialize app when document is ready
 document.addEventListener("DOMContentLoaded", function () {
+  // Recuperar pontos salvos, se existirem
+  const savedPoints = localStorage.getItem("pontosGrafico");
+  if (savedPoints) {
+    app.pontosGrafico = JSON.parse(savedPoints);
+  }
+
   // Set event listeners for navigation buttons
   setupEventListeners();
 
@@ -106,10 +120,10 @@ function setupBackButtons() {
 // Apply the current app state to the screen
 function applyAppState() {
   // Set altitude and pressure values if inputs exist
-  const alturaInput = document.getElementById("altura");
+  const altitudeInput = document.getElementById("altitude");
   const pressaoInput = document.getElementById("pressao");
 
-  if (alturaInput) alturaInput.value = app.altura;
+  if (altitudeInput) altitudeInput.value = app.altitude;
   if (pressaoInput) pressaoInput.value = app.pressao;
 }
 
@@ -153,6 +167,7 @@ function setupScreenSpecificListeners() {
 function setupMainScreenListeners() {
   const menuButton = document.getElementById("menuButton");
   const menuOverlay = document.getElementById("menuOverlay");
+  const resetButton = document.getElementById("resetButton");
 
   if (menuButton) {
     menuButton.addEventListener("click", function () {
@@ -176,6 +191,12 @@ function setupMainScreenListeners() {
     });
   }
 
+  if (resetButton) {
+    resetButton.addEventListener("click", function () {
+      resetAppValues();
+    });
+  }
+
   // Adicione isso para configurar os event listeners dos cards
   document.querySelectorAll(".nav-card").forEach(function (card, index) {
     card.addEventListener("click", function () {
@@ -190,14 +211,52 @@ function setupMainScreenListeners() {
   });
 }
 
+// Função para resetar valores da aplicação
+function resetAppValues() {
+  // Reset dos valores para os padrões
+  app.altitude = 0;
+  app.pressao = 101.325;
+  app.pontosGrafico = [];
+
+  // Atualize os campos na tela
+  const altitudeInput = document.getElementById("altitude");
+  const pressaoInput = document.getElementById("pressao");
+
+  if (altitudeInput) altitudeInput.value = app.altitude;
+  if (pressaoInput) pressaoInput.value = app.pressao;
+}
+
 // Ponto Estado screen listeners and functionality
 function setupPontoEstadoListeners() {
   const calcularBtn = document.getElementById("calcular");
+  const visualizarBtn = document.getElementById("visualizarCarta");
   const limparBtn = document.getElementById("limpa");
+
+  // Adicionar listeners para os botões de rádio
+  const radioButtons = document.querySelectorAll('input[name="param"]');
+
+  // Usar os IDs para selecionar os elementos com precisão
+  const paramLabelElement = document.getElementById("secondParamLabel");
+  const paramInputElement = document.getElementById("secondParamInput");
+
+  // Configurar os listeners para os radio buttons
+  if (radioButtons.length > 0) {
+    radioButtons.forEach((radio) => {
+      radio.addEventListener("change", function () {
+        updateSecondParamField(this.id, paramLabelElement, paramInputElement);
+      });
+    });
+  }
 
   if (calcularBtn) {
     calcularBtn.addEventListener("click", function () {
       calcularPontoEstado();
+    });
+  }
+
+  if (visualizarBtn) {
+    visualizarBtn.addEventListener("click", function () {
+      navigateTo("tela_carta_psicometrica.html");
     });
   }
 
@@ -206,6 +265,58 @@ function setupPontoEstadoListeners() {
       limparPontoEstado();
     });
   }
+
+  // Inicializar o campo baseado no radio já selecionado
+  const initialSelectedRadio = document.querySelector(
+    'input[name="param"]:checked'
+  );
+  if (initialSelectedRadio) {
+    updateSecondParamField(
+      initialSelectedRadio.id,
+      document.querySelector(".input-group:nth-of-type(3) .input-label"),
+      document.querySelector(".input-group:nth-of-type(3) .input-field")
+    );
+  }
+}
+
+// Função para atualizar o campo do segundo parâmetro com base na opção selecionada
+function updateSecondParamField(radioId, labelElement, inputElement) {
+  // Resetar valor do campo ao mudar o tipo de parâmetro
+  inputElement.value = "";
+
+  // Atualizar label e placeholder baseado na opção selecionada
+  switch (radioId) {
+    case "option-bu":
+      labelElement.textContent = "Temperatura de Bulbo Úmido (°C):";
+      inputElement.placeholder = "Ex: 19.4";
+      inputElement.step = "0.1";
+      break;
+    case "option-ur":
+      labelElement.textContent = "Umidade Relativa (%):";
+      inputElement.placeholder = "Ex: 65.0";
+      inputElement.step = "0.1";
+      break;
+    case "option-po":
+      labelElement.textContent = "Temperatura de Ponto de Orvalho (°C):";
+      inputElement.placeholder = "Ex: 17.8";
+      inputElement.step = "0.1";
+      break;
+    case "option-en":
+      labelElement.textContent = "Entalpia (kJ/kg):";
+      inputElement.placeholder = "Ex: 58.4";
+      inputElement.step = "0.1";
+      break;
+    case "option-rm":
+      labelElement.textContent = "Razão de Mistura (kg/kg):";
+      inputElement.placeholder = "Ex: 0.013";
+      inputElement.step = "0.001";
+      break;
+    case "option-ve":
+      labelElement.textContent = "Volume Específico (m³/kg):";
+      inputElement.placeholder = "Ex: 0.861";
+      inputElement.step = "0.001";
+      break;
+  }
 }
 
 // Calculate state point properties
@@ -213,33 +324,54 @@ function calcularPontoEstado() {
   // Get input values
   const tempBulbSeco =
     parseFloat(document.getElementById("tempSeco").value) || 0;
-  const tempBulbUmido = document.getElementById("tempUmido").value;
-  const tempPontoOrvalho = document.getElementById("tempOrvalho").value;
-  const umidade = document.getElementById("umidadeRel").value;
-  const razao = document.getElementById("razaoMistura").value;
-  const entalpia = document.getElementById("entalpia").value;
-  const volume = document.getElementById("volumeEspecifico").value;
 
-  // Check if dry bulb temp and at least one other parameter is provided
-  if (
-    isNaN(tempBulbSeco) ||
-    (!tempBulbUmido &&
-      !tempPontoOrvalho &&
-      !umidade &&
-      !razao &&
-      !entalpia &&
-      !volume)
-  ) {
+  // Determinar qual parâmetro está selecionado
+  const selectedRadio = document.querySelector('input[name="param"]:checked');
+  const secondParamValue = parseFloat(
+    document.querySelector(".input-group:nth-of-type(3) .input-field").value
+  );
+
+  // Inicializar variáveis para todos os parâmetros possíveis
+  let tempBulbUmido = null;
+  let tempPontoOrvalho = null;
+  let umidade = null;
+  let razao = null;
+  let entalpia = null;
+  let volume = null;
+
+  // Atribuir o valor ao parâmetro correto com base no radio selecionado
+  if (selectedRadio) {
+    switch (selectedRadio.id) {
+      case "option-bu":
+        tempBulbUmido = secondParamValue;
+        break;
+      case "option-ur":
+        umidade = secondParamValue;
+        break;
+      case "option-po":
+        tempPontoOrvalho = secondParamValue;
+        break;
+      case "option-en":
+        entalpia = secondParamValue;
+        break;
+      case "option-rm":
+        razao = secondParamValue;
+        break;
+      case "option-ve":
+        volume = secondParamValue;
+        break;
+    }
+  }
+
+  // Verificar se a temperatura de bulbo seco e pelo menos um outro parâmetro foram informados
+  if (isNaN(tempBulbSeco) || isNaN(secondParamValue)) {
     alert(
-      "É preciso informar a temperatura de bulbo seco e pelo menos mais um parâmetro!"
+      "É preciso informar a temperatura de bulbo seco e o segundo parâmetro!"
     );
     return;
   }
 
-  // Simulate calculation (in a real app, this would call the psychrometric calculation functions)
-  // For demonstration, we'll use simplified calculations
-
-  // Calculate properties based on available inputs
+  // Calcular as propriedades com base nos inputs disponíveis
   let calculatedValues = {
     tempBulbUmido: tempBulbUmido || (0.7 * tempBulbSeco + 4.2).toFixed(1),
     tempPontoOrvalho: tempPontoOrvalho || (0.6 * tempBulbSeco - 2.3).toFixed(1),
@@ -306,7 +438,7 @@ function limparPontoEstado() {
 // Análise Psicrométrica screen listeners and functionality
 function setupAnaliseListeners() {
   const calcularBtn = document.getElementById("calcularCondBtn");
-  const visualizarBtn = document.getElementById("voltarCondBtn");
+  const visualizarBtn = document.getElementById("visualizarCarta");
   const limparBtn = document.getElementById("limparCondBtn");
 
   if (calcularBtn) {
@@ -1154,36 +1286,66 @@ function setupCartaListeners() {
       });
     });
   }
+
+  // Handler para o botão de exportar
+  const exportBtn = document.querySelector(".action-button.primary-action");
+  if (exportBtn) {
+    exportBtn.addEventListener("click", function () {
+      showExportDialog();
+    });
+  }
+
+  // Handler para o botão de imprimir
+  const printBtn = document.querySelector(".action-button.secondary-action");
+  if (printBtn) {
+    printBtn.addEventListener("click", function () {
+      window.print();
+    });
+  }
+
+  // Configurar os handlers do diálogo de exportação
+  setupExportDialogListeners();
 }
 
 // Setup the psychrometric chart with saved points
 function setupPsychrometricChart() {
   const chartContent = document.querySelector(".chart-content");
-  if (!chartContent) return;
+  if (!chartContent) {
+    console.error("Elemento .chart-content não encontrado");
+    return;
+  }
 
-  // Clear existing points
-  const existingPoints = chartContent.querySelectorAll(".custom-point");
-  existingPoints.forEach((point) => point.remove());
+  // Remover pontos e linhas existentes
+  chartContent
+    .querySelectorAll(".custom-point, .custom-line")
+    .forEach((el) => el.remove());
 
-  // Add saved points to the chart
+  console.log("Pontos para exibir:", app.pontosGrafico);
+
+  // Verificar se há pontos para exibir
+  if (!app.pontosGrafico || app.pontosGrafico.length === 0) {
+    console.warn("Nenhum ponto para exibir na carta");
+    return;
+  }
+
+  // Adicionar pontos ao gráfico
   app.pontosGrafico.forEach((point, index) => {
     const pointElement = document.createElement("div");
     pointElement.className = "chart-point custom-point";
     pointElement.title = `Ponto ${index + 1}`;
 
-    // Calculate position based on the point data
-    // This is a simplified calculation - in a real app, you would use proper chart coordinates
-    const x = 10 + (point.tbs / 50) * 80; // 10% margin, 80% width for temperature range 0-50°C
-    const y = 90 - point.rm * 100 * 4; // Position from top based on humidity ratio (simplified)
+    // Calcular posição baseada nos dados do ponto
+    const x = 10 + (point.tbs / 50) * 80; // 10% margem, 80% largura para range de 0-50°C
+    const y = 90 - point.rm * 100 * 4; // Posição de cima baseada na razão de umidade
 
     pointElement.style.left = `${x}%`;
     pointElement.style.top = `${y}%`;
 
-    // Add different colors based on point index
+    // Adicionar cores diferentes baseadas no índice do ponto
     const colors = ["#2196f3", "#f44336", "#4caf50", "#ff9800"];
     pointElement.style.backgroundColor = colors[index % colors.length];
 
-    // Add click handler
+    // Adicionar handler de clique
     pointElement.addEventListener("click", function () {
       document.querySelectorAll(".chart-point").forEach((p) => {
         p.classList.remove("active");
@@ -1195,7 +1357,7 @@ function setupPsychrometricChart() {
     chartContent.appendChild(pointElement);
   });
 
-  // Add lines between points if there are multiple points
+  // Adicionar linhas entre os pontos se houver múltiplos pontos
   if (app.pontosGrafico.length > 1) {
     for (let i = 0; i < app.pontosGrafico.length - 1; i++) {
       const point1 = app.pontosGrafico[i];
@@ -1209,7 +1371,7 @@ function setupPsychrometricChart() {
       const lineElement = document.createElement("div");
       lineElement.className = "chart-line custom-line";
 
-      // Calculate line properties
+      // Calcular propriedades da linha
       const length = Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
       const angle = (Math.atan2(y2 - y1, x2 - x1) * 180) / Math.PI;
 
@@ -1217,10 +1379,175 @@ function setupPsychrometricChart() {
       lineElement.style.left = `${x1}%`;
       lineElement.style.top = `${y1}%`;
       lineElement.style.transform = `rotate(${angle}deg)`;
+      lineElement.style.transformOrigin = "left center";
 
       chartContent.appendChild(lineElement);
     }
   }
+
+  // Selecionar o primeiro ponto por padrão
+  const firstPoint = chartContent.querySelector(".custom-point");
+  if (firstPoint) {
+    firstPoint.classList.add("active");
+    updateInfoBox(`Ponto 1`, app.pontosGrafico[0]);
+  }
+}
+
+// Configurar handlers para o diálogo de exportação
+function setupExportDialogListeners() {
+  // Fechar diálogo
+  const closeBtn = document.getElementById("closeExportDialog");
+  if (closeBtn) {
+    closeBtn.addEventListener("click", function () {
+      document.getElementById("exportDialog").style.display = "none";
+    });
+  }
+
+  // Botão de exportação CSV
+  const csvBtn = document.getElementById("exportCSV");
+  if (csvBtn) {
+    csvBtn.addEventListener("click", function () {
+      exportChartDataCSV();
+      document.getElementById("exportDialog").style.display = "none";
+    });
+  }
+
+  // Botão de exportação PDF
+  const pdfBtn = document.getElementById("exportPDF");
+  if (pdfBtn) {
+    pdfBtn.addEventListener("click", function () {
+      exportChartDataPDF();
+      document.getElementById("exportDialog").style.display = "none";
+    });
+  }
+
+  // Botão de exportação de imagem
+  const imgBtn = document.getElementById("exportImage");
+  if (imgBtn) {
+    imgBtn.addEventListener("click", function () {
+      exportChartAsImage();
+      document.getElementById("exportDialog").style.display = "none";
+    });
+  }
+}
+
+// Mostrar diálogo de exportação
+function showExportDialog() {
+  document.getElementById("exportDialog").style.display = "flex";
+}
+
+// Função para exportar dados da carta em CSV
+function exportChartDataCSV() {
+  // Gerar dados no formato CSV
+  let csvContent = "data:text/csv;charset=utf-8,";
+  csvContent +=
+    "Ponto,TBS (°C),TBU (°C),UR (%),Razão Mistura (kg/kg),Entalpia (kJ/kg),Volume Específico (m³/kg),Ponto Orvalho (°C)\n";
+
+  app.pontosGrafico.forEach((point, index) => {
+    csvContent += `${index + 1},${point.tbs},${point.tbu},${point.ur},${
+      point.rm
+    },${point.et},${point.ve},${point.tpo}\n`;
+  });
+
+  // Criar link para download
+  const encodedUri = encodeURI(csvContent);
+  const link = document.createElement("a");
+  link.setAttribute("href", encodedUri);
+  link.setAttribute("download", "carta_psicrometrica_dados.csv");
+  document.body.appendChild(link);
+
+  // Simular clique no link
+  link.click();
+  document.body.removeChild(link);
+}
+
+// Função para exportar dados da carta em PDF
+function exportChartDataPDF() {
+  // Inicializar o objeto jsPDF
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF();
+
+  // Adicionar título
+  doc.setFontSize(16);
+  doc.text("Carta Psicrométrica - Dados", 15, 15);
+
+  // Adicionar data de geração
+  const hoje = new Date();
+  doc.setFontSize(10);
+  doc.text(
+    `Gerado em: ${hoje.toLocaleDateString()} ${hoje.toLocaleTimeString()}`,
+    15,
+    25
+  );
+
+  // Adicionar cabeçalho da tabela
+  doc.setFontSize(10);
+  doc.setFont(undefined, "bold");
+  const headers = [
+    "Ponto",
+    "TBS (°C)",
+    "TBU (°C)",
+    "UR (%)",
+    "Razão (kg/kg)",
+    "Entalpia (kJ/kg)",
+    "Vol. Esp. (m³/kg)",
+    "P. Orv. (°C)",
+  ];
+
+  // Configuração para a tabela
+  let y = 35;
+  const cellWidth = 24;
+
+  // Desenhar cabeçalhos
+  headers.forEach((header, i) => {
+    doc.text(header, 15 + i * cellWidth, y);
+  });
+
+  // Adicionar dados dos pontos
+  doc.setFont(undefined, "normal");
+  app.pontosGrafico.forEach((point, index) => {
+    y += 10;
+    doc.text(`${index + 1}`, 15, y);
+    doc.text(`${point.tbs}`, 15 + cellWidth, y);
+    doc.text(`${point.tbu}`, 15 + 2 * cellWidth, y);
+    doc.text(`${point.ur}`, 15 + 3 * cellWidth, y);
+    doc.text(`${point.rm}`, 15 + 4 * cellWidth, y);
+    doc.text(`${point.et}`, 15 + 5 * cellWidth, y);
+    doc.text(`${point.ve}`, 15 + 6 * cellWidth, y);
+    doc.text(`${point.tpo}`, 15 + 7 * cellWidth, y);
+  });
+
+  // Adicionar visualização da carta
+  html2canvas(document.querySelector(".chart-content")).then((canvas) => {
+    // Converter o canvas para imagem
+    const imgData = canvas.toDataURL("image/png");
+
+    // Adicionar nova página para a imagem
+    doc.addPage();
+    doc.text("Visualização da Carta", 15, 15);
+
+    // Calcular dimensões para manter proporção
+    const imgWidth = 180;
+    const imgHeight = (canvas.height * imgWidth) / canvas.width;
+
+    // Adicionar a imagem
+    doc.addImage(imgData, "PNG", 15, 25, imgWidth, imgHeight);
+
+    // Salvar o PDF
+    doc.save("carta_psicrometrica.pdf");
+  });
+}
+
+// Função para exportar a carta como imagem
+function exportChartAsImage() {
+  html2canvas(document.querySelector(".chart-content")).then((canvas) => {
+    // Converter o canvas para imagem e iniciar download
+    const imgData = canvas.toDataURL("image/png");
+    const link = document.createElement("a");
+    link.href = imgData;
+    link.download = "carta_psicrometrica.png";
+    link.click();
+  });
 }
 
 // Update the info box with point data
@@ -1231,16 +1558,27 @@ function updateInfoBox(title, pointData) {
   const infoTitle = infoBox.querySelector(".info-box-title");
   if (infoTitle) infoTitle.textContent = title;
 
-  // If point data is provided, update all values
+  // Se dados do ponto forem fornecidos, atualizar todos os valores
   if (pointData) {
+    // Mapear valores da info box para os dados do ponto
+    const valueMap = {
+      0: pointData.tbs + "°C", // TBS
+      1: pointData.tbu + "°C", // TBU
+      2: pointData.ur + "%", // UR
+      3: pointData.et + " kJ/kg", // Entalpia
+      4: pointData.rm + " kg/kg", // Razão de Mistura
+      5: pointData.tpo + "°C", // Ponto de Orvalho
+    };
+
+    // Atualizar cada campo de valor
     const dataFields = infoBox.querySelectorAll(".info-box-value");
-    if (dataFields.length >= 6) {
-      dataFields[0].textContent = `${pointData.tbs}°C`;
-      dataFields[1].textContent = `${pointData.tbu}°C`;
-      dataFields[2].textContent = `${pointData.ur}%`;
-      dataFields[3].textContent = `${pointData.et} kJ/kg`;
-      dataFields[4].textContent = `${pointData.rm} kg/kg`;
-      dataFields[5].textContent = `${pointData.tpo}°C`;
+    for (let i = 0; i < dataFields.length && i < 6; i++) {
+      if (valueMap[i]) {
+        dataFields[i].textContent = valueMap[i];
+      }
     }
+
+    // Tornar o info box visível
+    infoBox.style.display = "block";
   }
 }

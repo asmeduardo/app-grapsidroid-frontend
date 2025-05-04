@@ -74,11 +74,21 @@
       </div>
 
       <div class="input-group">
-        <label class="input-label">Temperatura de Bulbo Úmido (°C):</label>
-        <input type="number" class="input-field" value="19.4" step="0.1" />
+        <label id="secondParamLabel" class="input-label"
+          >Temperatura de Bulbo Úmido (°C):</label
+        >
+        <input
+          id="secondParamInput"
+          type="number"
+          class="input-field"
+          value="19.4"
+          step="0.1"
+        />
       </div>
 
-      <button class="primary-button">CALCULAR PROPRIEDADES</button>
+      <button id="calcular" class="primary-button">
+        CALCULAR PROPRIEDADES
+      </button>
     </div>
 
     <!-- Card de Resultados -->
@@ -132,7 +142,9 @@
         <span class="result-value">2.06 kPa</span>
       </div>
 
-      <button class="primary-button">VER NA CARTA PSICROMÉTRICA</button>
+      <button id="visualizarCarta" class="primary-button">
+        VISUALIZAR NA CARTA
+      </button>
     </div>
 
     <!-- Botão Limpar -->
