@@ -2,7 +2,7 @@
 
 // Global variables for app state
 const app = {
-  currentScreen: "tela_principal.html",
+  currentScreen: "index.html",
   altitude: 0,
   pressao: 101.325,
   idioma: "pt-BR",
@@ -112,7 +112,7 @@ function setupBackButtons() {
 
   backButtons.forEach((button) => {
     button.addEventListener("click", function () {
-      navigateTo("tela_principal.html");
+      navigateTo("index.html");
     });
   });
 }
@@ -133,7 +133,7 @@ function setupScreenSpecificListeners() {
   const currentScreen = window.location.href.split("/").pop();
 
   switch (currentScreen) {
-    case "tela_principal.html":
+    case "index.html":
       setupMainScreenListeners();
       break;
     case "tela_ponto_estado.html":
@@ -622,6 +622,7 @@ function setupProcessosListeners() {
   const processosSpinner = document.getElementById("processo");
   const calcularBtn = document.getElementById("calcProcessos");
   const visualizarBtn = document.getElementById("visualizarCarta");
+  const limparBtn = document.getElementById("limparProcessos");
 
   if (processosSpinner) {
     processosSpinner.addEventListener("change", function () {
@@ -641,6 +642,12 @@ function setupProcessosListeners() {
     });
   }
 
+  if (limparBtn) {
+    limparBtn.addEventListener("click", function () {
+      limparProcessos();
+    });
+  }
+
   // Inicialize a função de alternância de abas
   alternarAbas();
 
@@ -648,6 +655,37 @@ function setupProcessosListeners() {
   if (processosSpinner) {
     updateProcessFields(processosSpinner.selectedIndex);
   }
+}
+
+// Função para limpar todos os campos da tela de processos
+function limparProcessos() {
+  // Limpar campos de entrada
+  document.getElementById("prop1").value = "";
+  document.getElementById("prop2").value = "";
+  document.getElementById("prop3").value = "";
+  document.getElementById("prop4").value = "";
+  document.getElementById("prop5").value = "";
+  document.getElementById("prop6").value = "";
+
+  // Limpar resultados para todos os pontos
+  for (let i = 1; i <= 3; i++) {
+    document.getElementById("tempSecoProcessos" + i).textContent = "0.0 °C";
+    document.getElementById("tempUmidoProcessos" + i).textContent = "0.0 °C";
+    document.getElementById("umidadeRelProcessos" + i).textContent = "0.0 %";
+    document.getElementById("razaoProcessos" + i).textContent = "0.0 kg/kg";
+    document.getElementById("pressaoVapProcessos" + i).textContent = "0.0 kPa";
+    document.getElementById("pressaoProcessos" + i).textContent = "0.0 kPa";
+    document.getElementById("entalpiaProcessos" + i).textContent = "0.0 kJ/kg";
+    document.getElementById("pontoOrvProcessos" + i).textContent = "0.0 °C";
+    document.getElementById("volEspProcessos" + i).textContent = "0.0 m³/kg";
+  }
+
+  // Limpar o fluxo total (específico do ponto 3)
+  const fluxoTotal = document.getElementById("fluxoProcessos3");
+  if (fluxoTotal) fluxoTotal.textContent = "0 m³/h";
+
+  // Desabilitar o botão de visualizar carta
+  document.getElementById("visualizarCarta").disabled = true;
 }
 
 // Função para alternar entre as abas de resultados
@@ -1263,7 +1301,7 @@ function setupIdiomasListeners() {
         // Save the selected language
         app.idioma = selectedLang.getAttribute("data-lang");
         // Navigate back to the main screen
-        navigateTo("tela_principal.html");
+        navigateTo("index.html");
       }
     });
   }
@@ -1271,7 +1309,7 @@ function setupIdiomasListeners() {
   if (backButton) {
     backButton.addEventListener("click", function () {
       // Navigate back to the main screen
-      navigateTo("tela_principal.html");
+      navigateTo("index.html");
     });
   }
 }
@@ -1282,7 +1320,7 @@ function setupSobreListeners() {
 
   if (voltarBtn) {
     voltarBtn.addEventListener("click", function () {
-      navigateTo("tela_principal.html");
+      navigateTo("index.html");
     });
   }
 }
@@ -1297,7 +1335,7 @@ function setupCartaListeners() {
   const backButton = document.querySelector(".back-button");
   if (backButton) {
     backButton.addEventListener("click", function () {
-      navigateTo("tela_principal.html");
+      navigateTo("index.html");
     });
   }
 
