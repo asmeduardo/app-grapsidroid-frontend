@@ -50,36 +50,67 @@
         <div class="input-row">
           <label class="input-label">Temp. Bulbo Seco °C - P1:</label>
           <div class="input-field-container">
-            <input type="number" class="input-field" value="25.0" step="0.1" />
+            <input
+              type="number"
+              id="prop1"
+              class="input-field"
+              value="25.0"
+              step="0.1"
+            />
           </div>
         </div>
 
         <div class="input-row">
-          <label class="input-label">Temp. Bulbo Seco °C - P2:</label>
+          <label id="prop2Text" class="input-label"
+            >Temp. Bulbo Seco °C - P2:</label
+          >
           <div class="input-field-container">
-            <input type="number" class="input-field" value="60.0" step="0.1" />
+            <input
+              type="number"
+              id="prop2"
+              class="input-field"
+              value="60.0"
+              step="0.1"
+            />
           </div>
         </div>
 
         <div class="input-row">
-          <label class="input-label">Umidade Relativa (%) - P1:</label>
+          <label id="prop3Text" class="input-label"
+            >Umidade Relativa (%) - P1:</label
+          >
           <div class="input-field-container">
-            <input type="number" class="input-field" value="65.0" step="0.1" />
+            <input
+              type="number"
+              id="prop3"
+              class="input-field"
+              value="65.0"
+              step="0.1"
+            />
           </div>
         </div>
 
-        <div class="input-row">
-          <label class="input-label">Umidade Relativa (%) - P2:</label>
+        <div class="input-row" id="prop4Linear">
+          <label id="prop4Text" class="input-label"
+            >Umidade Relativa (%) - P2:</label
+          >
           <div class="input-field-container">
-            <input type="number" class="input-field" value="10.0" step="0.1" />
+            <input
+              type="number"
+              id="prop4"
+              class="input-field"
+              value="10.0"
+              step="0.1"
+            />
           </div>
         </div>
 
-        <div class="input-row">
+        <div class="input-row" id="prop5Linear">
           <label class="input-label">Fluxo de ar (m³/h) - P1:</label>
           <div class="input-field-container">
             <input
               type="number"
+              id="prop5"
               class="input-field"
               value="1000.0"
               step="1.0"
@@ -87,15 +118,23 @@
           </div>
         </div>
 
-        <div class="input-row">
+        <div class="input-row" id="prop6Linear">
           <label class="input-label">Fluxo de ar (m³/h) - P2:</label>
           <div class="input-field-container">
-            <input type="number" class="input-field" value="500.0" step="1.0" />
+            <input
+              type="number"
+              id="prop6"
+              class="input-field"
+              value="500.0"
+              step="1.0"
+            />
           </div>
         </div>
       </div>
 
-      <button class="primary-button">CALCULAR PROCESSO</button>
+      <button class="primary-button" id="calcProcessos">
+        CALCULAR PROCESSO
+      </button>
     </div>
 
     <!-- Card de resultados -->
@@ -117,50 +156,50 @@
       </div>
 
       <!-- Resultados para o Ponto 1 -->
-      <div class="result-section" id="ponto1-results">
+      <div class="result-section" id="ponto1-results" style="display: block">
         <div class="result-item">
           <span class="result-label">Temperatura de Bulbo Seco:</span>
-          <span class="result-value">25.0 °C</span>
+          <span id="tempSecoProcessos1" class="result-value">25.0 °C</span>
         </div>
 
         <div class="result-item">
           <span class="result-label">Temperatura de Bulbo Úmido:</span>
-          <span class="result-value">19.4 °C</span>
+          <span id="tempUmidoProcessos1" class="result-value">19.4 °C</span>
         </div>
 
         <div class="result-item">
           <span class="result-label">Umidade Relativa:</span>
-          <span class="result-value">65.0 %</span>
+          <span id="umidadeRelProcessos1" class="result-value">65.0 %</span>
         </div>
 
         <div class="result-item">
           <span class="result-label">Razão de Mistura:</span>
-          <span class="result-value">0.013 kg/kg</span>
+          <span id="razaoProcessos1" class="result-value">0.013 kg/kg</span>
         </div>
 
         <div class="result-item">
           <span class="result-label">Pressão de Vapor:</span>
-          <span class="result-value">2.06 kPa</span>
+          <span id="pressaoVapProcessos1" class="result-value">2.06 kPa</span>
         </div>
 
         <div class="result-item">
           <span class="result-label">Pressão de Vapor Saturado:</span>
-          <span class="result-value">3.17 kPa</span>
+          <span id="pressaoProcessos1" class="result-value">3.17 kPa</span>
         </div>
 
         <div class="result-item">
           <span class="result-label">Entalpia:</span>
-          <span class="result-value">58.4 kJ/kg</span>
+          <span id="entalpiaProcessos1" class="result-value">58.4 kJ/kg</span>
         </div>
 
         <div class="result-item">
           <span class="result-label">Ponto de Orvalho:</span>
-          <span class="result-value">17.8 °C</span>
+          <span id="pontoOrvProcessos1" class="result-value">17.8 °C</span>
         </div>
 
         <div class="result-item">
           <span class="result-label">Volume Específico:</span>
-          <span class="result-value">0.861 m³/kg</span>
+          <span id="volEspProcessos1" class="result-value">0.861 m³/kg</span>
         </div>
       </div>
 
@@ -168,100 +207,105 @@
       <div class="result-section" id="ponto2-results" style="display: none">
         <div class="result-item">
           <span class="result-label">Temperatura de Bulbo Seco:</span>
-          <span class="result-value">60.0 °C</span>
+          <span id="tempSecoProcessos2" class="result-value">60.0 °C</span>
         </div>
 
         <div class="result-item">
           <span class="result-label">Temperatura de Bulbo Úmido:</span>
-          <span class="result-value">29.7 °C</span>
+          <span id="tempUmidoProcessos2" class="result-value">29.7 °C</span>
         </div>
 
         <div class="result-item">
           <span class="result-label">Umidade Relativa:</span>
-          <span class="result-value">10.0 %</span>
+          <span id="umidadeRelProcessos2" class="result-value">10.0 %</span>
         </div>
 
         <div class="result-item">
           <span class="result-label">Razão de Mistura:</span>
-          <span class="result-value">0.013 kg/kg</span>
+          <span id="razaoProcessos2" class="result-value">0.013 kg/kg</span>
         </div>
 
         <div class="result-item">
           <span class="result-label">Pressão de Vapor:</span>
-          <span class="result-value">1.99 kPa</span>
+          <span id="pressaoVapProcessos2" class="result-value">1.99 kPa</span>
         </div>
 
         <div class="result-item">
           <span class="result-label">Pressão de Vapor Saturado:</span>
-          <span class="result-value">19.94 kPa</span>
+          <span id="pressaoProcessos2" class="result-value">19.94 kPa</span>
         </div>
 
         <div class="result-item">
           <span class="result-label">Entalpia:</span>
-          <span class="result-value">93.6 kJ/kg</span>
+          <span id="entalpiaProcessos2" class="result-value">93.6 kJ/kg</span>
         </div>
 
         <div class="result-item">
           <span class="result-label">Ponto de Orvalho:</span>
-          <span class="result-value">17.6 °C</span>
+          <span id="pontoOrvProcessos2" class="result-value">17.6 °C</span>
         </div>
 
         <div class="result-item">
           <span class="result-label">Volume Específico:</span>
-          <span class="result-value">1.011 m³/kg</span>
+          <span id="volEspProcessos2" class="result-value">1.011 m³/kg</span>
         </div>
       </div>
 
       <!-- Resultados para o Ponto 3 (Mistura) -->
-      <div class="result-section" id="ponto3-results" style="display: none">
+      <div
+        class="result-section"
+        id="ponto3-results"
+        style="display: none"
+        id="linearProcessos3"
+      >
         <div class="result-item">
           <span class="result-label">Temperatura de Bulbo Seco:</span>
-          <span class="result-value">36.7 °C</span>
+          <span id="tempSecoProcessos3" class="result-value">36.7 °C</span>
         </div>
 
         <div class="result-item">
           <span class="result-label">Temperatura de Bulbo Úmido:</span>
-          <span class="result-value">22.8 °C</span>
+          <span id="tempUmidoProcessos3" class="result-value">22.8 °C</span>
         </div>
 
         <div class="result-item">
           <span class="result-label">Umidade Relativa:</span>
-          <span class="result-value">34.4 %</span>
+          <span id="umidadeRelProcessos3" class="result-value">34.4 %</span>
         </div>
 
         <div class="result-item">
           <span class="result-label">Razão de Mistura:</span>
-          <span class="result-value">0.013 kg/kg</span>
+          <span id="razaoProcessos3" class="result-value">0.013 kg/kg</span>
         </div>
 
         <div class="result-item">
           <span class="result-label">Pressão de Vapor:</span>
-          <span class="result-value">2.04 kPa</span>
+          <span id="pressaoVapProcessos3" class="result-value">2.04 kPa</span>
         </div>
 
         <div class="result-item">
           <span class="result-label">Pressão de Vapor Saturado:</span>
-          <span class="result-value">5.94 kPa</span>
+          <span id="pressaoProcessos3" class="result-value">5.94 kPa</span>
         </div>
 
         <div class="result-item">
           <span class="result-label">Entalpia:</span>
-          <span class="result-value">70.1 kJ/kg</span>
+          <span id="entalpiaProcessos3" class="result-value">70.1 kJ/kg</span>
         </div>
 
         <div class="result-item">
           <span class="result-label">Ponto de Orvalho:</span>
-          <span class="result-value">17.8 °C</span>
+          <span id="pontoOrvProcessos3" class="result-value">17.8 °C</span>
         </div>
 
         <div class="result-item">
           <span class="result-label">Volume Específico:</span>
-          <span class="result-value">0.906 m³/kg</span>
+          <span id="volEspProcessos3" class="result-value">0.906 m³/kg</span>
         </div>
 
         <div class="result-item">
           <span class="result-label">Fluxo Total:</span>
-          <span class="result-value">1367 m³/h</span>
+          <span id="fluxoProcessos3" class="result-value">1367 m³/h</span>
         </div>
       </div>
 

@@ -618,7 +618,8 @@ function limparCondicoes() {
 
 // Process Modification screen listeners and functionality
 function setupProcessosListeners() {
-  const processosSpinner = document.getElementById("processosSpinner");
+  // Corrigindo o ID para corresponder ao que está no HTML
+  const processosSpinner = document.getElementById("processo");
   const calcularBtn = document.getElementById("calcProcessos");
   const visualizarBtn = document.getElementById("visualizarCarta");
 
@@ -640,28 +641,61 @@ function setupProcessosListeners() {
     });
   }
 
+  // Inicialize a função de alternância de abas
+  alternarAbas();
+
   // Initialize the process fields based on the default selection
   if (processosSpinner) {
     updateProcessFields(processosSpinner.selectedIndex);
   }
 }
 
+// Função para alternar entre as abas de resultados
+function alternarAbas() {
+  const tabs = document.querySelectorAll(".tab");
+  tabs.forEach((tab) => {
+    tab.addEventListener("click", function () {
+      // Remover classe ativa de todas as abas
+      tabs.forEach((t) => t.classList.remove("active"));
+
+      // Adicionar classe ativa à aba clicada
+      this.classList.add("active");
+
+      // Ocultar todas as seções de resultados
+      const resultSections = document.querySelectorAll(".result-section");
+      resultSections.forEach((section) => {
+        section.style.display = "none";
+      });
+
+      // Mostrar a seção correspondente à aba clicada
+      const tabId = this.getAttribute("data-tab");
+      document.getElementById(tabId + "-results").style.display = "block";
+    });
+  });
+}
+
 // Update visible fields based on selected process
 function updateProcessFields(processIndex) {
+  // Ajustando para obter os elementos corretos baseado no HTML
   const prop4Linear = document.getElementById("prop4Linear");
   const prop5Linear = document.getElementById("prop5Linear");
   const prop6Linear = document.getElementById("prop6Linear");
-  const linearProcessos3 = document.getElementById("linearProcessos3");
-  const linearText3 = document.getElementById("linearTextProcessos3");
+
+  // Verificando a existência das div ponto3-results em vez de linearProcessos3
+  const ponto3Results = document.getElementById("ponto3-results");
+
+  // Removendo referência para elemento que não existe
+  // const linearText3 = document.getElementById("linearTextProcessos3");
 
   switch (processIndex) {
     case 0: // Mixing of two air flows
       // Show all fields
-      prop4Linear.style.display = "flex";
-      prop5Linear.style.display = "flex";
-      prop6Linear.style.display = "flex";
-      linearProcessos3.style.display = "flex";
-      linearText3.style.display = "flex";
+      if (prop4Linear) prop4Linear.style.display = "flex";
+      if (prop5Linear) prop5Linear.style.display = "flex";
+      if (prop6Linear) prop6Linear.style.display = "flex";
+
+      // Mostrar a div de resultados do ponto 3
+      if (ponto3Results) ponto3Results.style.display = "none"; // Começa oculto, será exibido quando a aba for selecionada
 
       // Update labels
       document.getElementById("prop2Text").textContent =
@@ -674,11 +708,12 @@ function updateProcessFields(processIndex) {
 
     case 1: // Heating or Cooling
       // Hide unnecessary fields
-      prop4Linear.style.display = "none";
-      prop5Linear.style.display = "none";
-      prop6Linear.style.display = "none";
-      linearProcessos3.style.display = "none";
-      linearText3.style.display = "none";
+      if (prop4Linear) prop4Linear.style.display = "none";
+      if (prop5Linear) prop5Linear.style.display = "none";
+      if (prop6Linear) prop6Linear.style.display = "none";
+
+      // Esconder a div de resultados do ponto 3
+      if (ponto3Results) ponto3Results.style.display = "none";
 
       // Update labels
       document.getElementById("prop2Text").textContent =
@@ -689,11 +724,12 @@ function updateProcessFields(processIndex) {
 
     case 2: // Adiabatic Humidification
       // Hide unnecessary fields
-      prop4Linear.style.display = "none";
-      prop5Linear.style.display = "none";
-      prop6Linear.style.display = "none";
-      linearProcessos3.style.display = "none";
-      linearText3.style.display = "none";
+      if (prop4Linear) prop4Linear.style.display = "none";
+      if (prop5Linear) prop5Linear.style.display = "none";
+      if (prop6Linear) prop6Linear.style.display = "none";
+
+      // Esconder a div de resultados do ponto 3
+      if (ponto3Results) ponto3Results.style.display = "none";
 
       // Update labels
       document.getElementById("prop2Text").textContent =
@@ -701,6 +737,12 @@ function updateProcessFields(processIndex) {
       document.getElementById("prop3Text").textContent =
         "Umidade Relativa (%) - P2:";
       break;
+  }
+
+  // Ajustar visibilidade da aba Ponto 3
+  const ponto3Tab = document.querySelector('.tab[data-tab="ponto3"]');
+  if (ponto3Tab) {
+    ponto3Tab.style.display = processIndex === 0 ? "block" : "none";
   }
 }
 
